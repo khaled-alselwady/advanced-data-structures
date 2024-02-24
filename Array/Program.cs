@@ -6,16 +6,16 @@ internal class Program
     private static void LinqWithArray()
     {
         // Array of numbers
-        int[] numbers = { 1, 2, 3, 4, 5 };
+        int[] Numbers = { 1, 2, 3, 4, 5 };
 
 
         // Using LINQ to filter and transform data
-        var evenSquares = numbers.Where(n => n % 2 == 0).Select(n => n * n);
+        var EvenNumbers = Numbers.Where(n => n % 2 == 0);
 
 
         // Displaying results
         Console.WriteLine("Squares of even numbers:");
-        foreach (var num in evenSquares)
+        foreach (var num in EvenNumbers)
         {
             Console.WriteLine(num);
         }
