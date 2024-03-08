@@ -18,6 +18,23 @@ public class TreeNode<T>
         Children.Add(Child);
     }
 
+    public TreeNode<T> Find(T Value)
+    {
+        if (EqualityComparer<T>.Default.Equals(this.Value, Value))
+            return this;
+
+        foreach (var Child in Children)
+        {
+            var Found = Child.Find(Value);
+
+            if (Found != null)
+                return Found;
+        }
+
+        return null;
+    }
+
+
 }
 
 public class Tree<T>
@@ -28,6 +45,27 @@ public class Tree<T>
     {
         this.Root = new TreeNode<T>(RootValue);
     }
+
+    public TreeNode<T> Find(T Value)
+    {
+        return this.Root?.Find(Value);
+    }
+
+    public void PrintTree(string Indent = " ")
+    {
+        _PrintTree(this.Root, Indent);
+    }
+
+    private static void _PrintTree(TreeNode<T> Node, string Indent = " ")
+    {
+        Console.WriteLine(Indent + Node.Value);
+
+        foreach (var Child in Node.Children)
+        {
+            _PrintTree(Child, Indent + "  ");
+        }
+    }
+
 }
 
 public class Program
@@ -50,42 +88,22 @@ public class Program
         Tech.AddChild(new TreeNode<string>("UX Designer"));
         Marketing.AddChild(new TreeNode<string>("Social Media Manager"));
 
-        PrintTree(CompanyTree.Root);
+        // Printing the tree
+        CompanyTree.PrintTree();
 
+        Console.WriteLine("\nFinding Developer...");
+        if (CompanyTree.Find("Developer") is null)
+            Console.WriteLine("Not Found :-(");
+        else
+            Console.WriteLine("Found :-)");
 
-        //var Grandpa = new Tree<string>("Mahmoud");
-        //var Faten = new TreeNode<string>("Faten");
-        //var Mosa = new TreeNode<string>("Mosa");
-        //var Maher = new TreeNode<string>("Maher");
+        Console.WriteLine("\nFinding DBA...");
+        if (CompanyTree.Find("DBA") is null)
+            Console.WriteLine("Not Found :-(");
+        else
+            Console.WriteLine("Found :-)");
 
-        //Grandpa.Root.AddChild(Faten);
-        //Grandpa.Root.AddChild(Maher);
-        //Grandpa.Root.AddChild(Mosa);
-
-        //Faten.AddChild(new TreeNode<string>("Khaled"));
-        //Faten.AddChild(new TreeNode<string>("Ahamd"));
-        //Faten.AddChild(new TreeNode<string>("Waleed"));
-        //Faten.AddChild(new TreeNode<string>("Abood"));
-        //Faten.AddChild(new TreeNode<string>("Mariam"));
-
-        //Mosa.AddChild(new TreeNode<string>("Abood"));
-        //Mosa.AddChild(new TreeNode<string>("Mohammed"));
-        //Mosa.AddChild(new TreeNode<string>("Yousef"));
-        //Mosa.AddChild(new TreeNode<string>("Lamies"));
-
-        //PrintTree(Grandpa.Root);
         Console.ReadKey();
     }
-
-    static void PrintTree<T>(TreeNode<T> Node, string Indent = " ")
-    {
-        Console.WriteLine(Indent + Node.Value);
-
-        foreach (var Chile in Node.Children)
-        {
-            PrintTree(Chile, Indent + "  ");
-        }
-    }
-
 }
 
