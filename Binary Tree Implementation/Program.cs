@@ -83,6 +83,11 @@ namespace BinaryTreeImplementation
             _PrintTree(Root, 0);
         }
 
+        public void PreOrderTraversal()
+        {
+            _PreOrderTraversal(Root);
+        }
+
         private void _PrintTree(BinaryTreeNode<T> root, int space)
         {
             const int COUNT = 10; // Distance between levels to adjust the visual representation
@@ -101,6 +106,26 @@ namespace BinaryTreeImplementation
             Console.WriteLine(root.Value); // Print the current node after space
 
             _PrintTree(root.Left, space); // Recur on the left child
+        }
+
+        private void _PreOrderTraversal(BinaryTreeNode<T> root)
+        {
+            /*
+              PreOrder Traversal visits the current node before its child nodes. 
+              The process for PreOrder Traversal is as follows:
+
+
+                 - Visit the current node.
+                 - Recursively perform PreOrder Traversal of the left subtree.
+                 - Recursively perform PreOrder Traversal of the right subtree.
+            */
+
+            if (root != null)
+            {
+                Console.Write(root.Value + " ");
+                _PreOrderTraversal(root.Left);
+                _PreOrderTraversal(root.Right);
+            }
         }
     }
 
@@ -122,6 +147,8 @@ namespace BinaryTreeImplementation
             //binaryTree.Insert(55);
 
             binaryTree.PrintTree();
+            Console.WriteLine("\n");
+            binaryTree.PreOrderTraversal();
 
             Console.ReadKey();
         }
