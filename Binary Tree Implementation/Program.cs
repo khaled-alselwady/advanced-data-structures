@@ -149,6 +149,25 @@ namespace BinaryTreeImplementation
         {
             _PostOrderTraversal(Root);
         }
+
+        private void _InOrderTraversal(BinaryTreeNode<T> root)
+        {
+            /*
+              Left - Current - Right
+             */
+
+            if (root != null)
+            {
+                _InOrderTraversal(root.Left);
+                Console.Write(root.Value + " ");
+                _InOrderTraversal(root.Right);
+
+            }
+        }
+        public void InOrderTraversal()
+        {
+            _InOrderTraversal(Root);
+        }
     }
 
     public class Program
@@ -166,15 +185,17 @@ namespace BinaryTreeImplementation
             binaryTree.Insert(4);
             binaryTree.Insert(6);
             binaryTree.Insert(9);
-            //binaryTree.Insert(55);
 
             binaryTree.PrintTree();
 
-            Console.WriteLine("\nPreOrder Traversal (Current-Left SubTree - Right SubTree):");
+            Console.WriteLine("\n\nPreOrder Traversal (Current-Left SubTree - Right SubTree):");
             binaryTree.PreOrderTraversal();
 
-            Console.WriteLine("\nPostOrder Traversal (Left SubTree - Right SubTree - Current):");
+            Console.WriteLine("\n\nPostOrder Traversal (Left SubTree - Right SubTree - Current):");
             binaryTree.PostOrderTraversal();
+
+            Console.WriteLine("\n\nInOrder Traversal (Left SubTree - Current -Right SubTree):");
+            binaryTree.InOrderTraversal();
 
             Console.ReadKey();
         }
