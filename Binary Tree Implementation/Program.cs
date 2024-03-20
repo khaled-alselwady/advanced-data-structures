@@ -78,16 +78,6 @@ namespace BinaryTreeImplementation
             }
         }
 
-        public void PrintTree()
-        {
-            _PrintTree(Root, 0);
-        }
-
-        public void PreOrderTraversal()
-        {
-            _PreOrderTraversal(Root);
-        }
-
         private void _PrintTree(BinaryTreeNode<T> root, int space)
         {
             const int COUNT = 10; // Distance between levels to adjust the visual representation
@@ -106,6 +96,10 @@ namespace BinaryTreeImplementation
             Console.WriteLine(root.Value); // Print the current node after space
 
             _PrintTree(root.Left, space); // Recur on the left child
+        }
+        public void PrintTree()
+        {
+            _PrintTree(Root, 0);
         }
 
         private void _PreOrderTraversal(BinaryTreeNode<T> root)
@@ -127,6 +121,34 @@ namespace BinaryTreeImplementation
                 _PreOrderTraversal(root.Right);
             }
         }
+        public void PreOrderTraversal()
+        {
+            _PreOrderTraversal(Root);
+        }
+
+        private void _PostOrderTraversal(BinaryTreeNode<T> root)
+        {
+            /*
+              PostOrder Traversal visits the current node after its child nodes. 
+              The process for PostOrder Traversal is:
+
+
+                - Recursively perform PostOrder Traversal of the left subtree.
+                - Recursively perform PostOrder Traversal of the right subtree.
+                - Visit the current node.
+           */
+
+            if (root != null)
+            {
+                _PostOrderTraversal(root.Left);
+                _PostOrderTraversal(root.Right);
+                Console.Write(root.Value + " ");
+            }
+        }
+        public void PostOrderTraversal()
+        {
+            _PostOrderTraversal(Root);
+        }
     }
 
     public class Program
@@ -147,8 +169,12 @@ namespace BinaryTreeImplementation
             //binaryTree.Insert(55);
 
             binaryTree.PrintTree();
-            Console.WriteLine("\n");
+
+            Console.WriteLine("\nPreOrder Traversal (Current-Left SubTree - Right SubTree):");
             binaryTree.PreOrderTraversal();
+
+            Console.WriteLine("\nPostOrder Traversal (Left SubTree - Right SubTree - Current):");
+            binaryTree.PostOrderTraversal();
 
             Console.ReadKey();
         }
