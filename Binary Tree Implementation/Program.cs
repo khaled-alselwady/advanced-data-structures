@@ -168,6 +168,33 @@ namespace BinaryTreeImplementation
         {
             _InOrderTraversal(Root);
         }
+
+        private void _LevelOrderTraversal(BinaryTreeNode<T> root)
+        {
+            if (Root is null)
+                return;
+
+            var queue = new Queue<BinaryTreeNode<T>>();
+
+            queue.Enqueue(Root);
+
+            while (queue.Count > 0)
+            {
+                var current = queue.Dequeue();
+
+                Console.Write(current.Value + " ");
+
+                if (current?.Left != null)
+                    queue.Enqueue(current.Left);
+
+                if (current?.Right != null)
+                    queue.Enqueue(current.Right);
+            }
+        }
+        public void LevelOrderTraversal()
+        {
+            _LevelOrderTraversal(Root);
+        }
     }
 
     public class Program
@@ -196,6 +223,9 @@ namespace BinaryTreeImplementation
 
             Console.WriteLine("\n\nInOrder Traversal (Left SubTree - Current -Right SubTree):");
             binaryTree.InOrderTraversal();
+
+            Console.WriteLine("\n\nLevel Order Traversal (Level by Level):");
+            binaryTree.LevelOrderTraversal();
 
             Console.ReadKey();
         }
